@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="photo"
+            type="com.rashan.photoapplication.models.Photo" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -23,6 +26,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
+                android:text="@{photo.author}"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -37,6 +41,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/photographer_name_textview"
+                app:set_image_url="@{photo.downloadUrl}"
                 tools:src="@drawable/ic_launcher_background" />
 
             <ImageView

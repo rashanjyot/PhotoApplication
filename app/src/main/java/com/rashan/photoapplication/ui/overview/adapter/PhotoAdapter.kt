@@ -2,10 +2,11 @@ package com.rashan.photoapplication.ui.overview.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.rashan.photoapplication.R
 import com.rashan.photoapplication.databinding.ItemPhotoOverviewBinding
 import com.rashan.photoapplication.models.Photo
-import utility.setImageFromUrl
 
 class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
@@ -13,15 +14,19 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PhotoViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemPhotoOverviewBinding.inflate(inflater, parent, false)
+        val binding = DataBindingUtil.inflate<ItemPhotoOverviewBinding>(
+            inflater,
+            R.layout.item_photo_overview,
+            parent,
+            false
+        )
         return PhotoViewHolder(binding)
     }
 
     override fun getItemCount() = photoList.size
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
-        val photo = photoList[position]
-        holder.bind(photo)
+        holder.binding.photo = photoList[position]
     }
 
     fun replacePhotoList(photoList: List<Photo>?) {
@@ -34,13 +39,6 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
         }
     }
 
-    class PhotoViewHolder(private val binding: ItemPhotoOverviewBinding) :
-        RecyclerView.ViewHolder(binding.root) {
-        fun bind(photo: Photo) {
-            binding.apply {
-                photographerNameTextview.text = photo.author
-                photoImageview.setImageFromUrl(photo.downloadUrl)
-            }
-        }
-    }
+    class PhotoViewHolder(val binding: ItemPhotoOverviewBinding) :
+        RecyclerView.ViewHolder(binding.root)
 }
