@@ -8,6 +8,10 @@
         <variable
             name="photo"
             type="com.rashan.photoapplication.models.Photo" />
+
+        <variable
+            name="adapter"
+            type="com.rashan.photoapplication.ui.overview.adapter.PhotoAdapter" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -37,6 +41,7 @@
                 android:id="@+id/photo_imageview"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:onClick="@{(view) -> adapter.onImageViewClick(view, photo)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
