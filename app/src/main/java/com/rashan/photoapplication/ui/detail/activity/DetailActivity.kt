@@ -8,7 +8,7 @@ import androidx.activity.viewModels
 import androidx.databinding.DataBindingUtil
 import com.rashan.photoapplication.R
 import com.rashan.photoapplication.databinding.ActivityDetailBinding
-import com.rashan.photoapplication.models.Photo
+import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.ui.detail.viewmodel.DetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

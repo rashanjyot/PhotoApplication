@@ -1,7 +1,6 @@
-package com.rashan.photoapplication.models
+package com.rashan.photoapplication.model.domain
 
 import android.os.Parcelable
-import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -11,6 +10,6 @@ data class Photo(
     val width: Int,
     val height: Int,
     val url: String,
-    @SerializedName("download_url")
-    val downloadUrl: String
+    val downloadUrl: String,
+    var isFavourite: Boolean = false
 ) : Parcelable

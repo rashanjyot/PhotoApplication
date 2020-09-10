@@ -1,6 +1,8 @@
 package com.rashan.photoapplication.repository
 
-import com.rashan.photoapplication.models.Photo
+import com.rashan.photoapplication.model.domain.Photo
+import com.rashan.photoapplication.model.networkDto.mapToDomain
+import kotlinx.coroutines.flow.asFlow
 import network.PhotoClient
 import network.generic.Resource
 import network.generic.ResponseHandler
@@ -13,7 +15,7 @@ class PhotoRepository @Inject constructor(
 ) {
     suspend fun fetchPhotoList(): Resource<List<Photo>> {
         return try {
-            responseHandler.handleSuccess(photoClient.fetchPhotoList())
+            responseHandler.handleSuccess(photoClient.fetchPhotoList().map { it.mapToDomain() })
         } catch (e: Exception) {
             responseHandler.handleException(e)
         }

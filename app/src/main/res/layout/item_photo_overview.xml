@@ -7,7 +7,7 @@
 
         <variable
             name="photo"
-            type="com.rashan.photoapplication.models.Photo" />
+            type="com.rashan.photoapplication.model.domain.Photo" />
 
         <variable
             name="adapter"
@@ -57,6 +57,7 @@
                 android:layout_marginEnd="10dp"
                 android:src="@drawable/ic_baseline_favorite_24"
                 android:visibility="gone"
+                app:visibile="@{photo.isFavourite}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/photographer_name_textview"
                 tools:visibility="visible" />

@@ -5,7 +5,7 @@ import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
-import com.rashan.photoapplication.models.Photo
+import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.ui.overview.adapter.PhotoAdapter
 
 @BindingAdapter("visibile")

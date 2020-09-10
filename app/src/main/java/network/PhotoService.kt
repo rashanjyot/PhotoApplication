@@ -1,11 +1,10 @@
 package network
 
-import com.rashan.photoapplication.models.Photo
-import retrofit2.Call
+import com.rashan.photoapplication.model.networkDto.PhotoNetworkDto
 import retrofit2.http.GET
 
 interface PhotoService {
 
     @GET("list")
-    suspend fun fetchPhotoList(): List<Photo>
+    suspend fun fetchPhotoList(): List<PhotoNetworkDto>
 }

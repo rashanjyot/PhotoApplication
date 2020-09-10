@@ -8,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rashan.photoapplication.R
 import com.rashan.photoapplication.databinding.ItemPhotoOverviewBinding
-import com.rashan.photoapplication.models.Photo
+import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.ui.detail.activity.DetailActivity
 
 class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {

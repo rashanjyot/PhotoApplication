@@ -3,7 +3,7 @@ package com.rashan.photoapplication.ui.overview.viewmodel
 import androidx.databinding.ObservableBoolean
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
-import com.rashan.photoapplication.models.Photo
+import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.repository.PhotoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
