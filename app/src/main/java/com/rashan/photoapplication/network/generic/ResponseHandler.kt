@@ -1,4 +1,4 @@
-package network.generic
+package com.rashan.photoapplication.network.generic
 
 import retrofit2.HttpException
 import java.lang.Exception

@@ -1,4 +1,4 @@
-package network
+package com.rashan.photoapplication.network
 
 import javax.inject.Inject
 

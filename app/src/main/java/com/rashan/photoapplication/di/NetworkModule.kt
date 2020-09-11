@@ -4,9 +4,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import network.PhotoService
-import network.PhotoClient
-import network.generic.ResponseHandler
+import com.rashan.photoapplication.network.PhotoService
+import com.rashan.photoapplication.network.PhotoClient
+import com.rashan.photoapplication.network.generic.ResponseHandler
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton

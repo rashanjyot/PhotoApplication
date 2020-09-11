@@ -1,4 +1,4 @@
-package network
+package com.rashan.photoapplication.network
 
 import com.rashan.photoapplication.model.networkDto.PhotoNetworkDto
 import retrofit2.http.GET

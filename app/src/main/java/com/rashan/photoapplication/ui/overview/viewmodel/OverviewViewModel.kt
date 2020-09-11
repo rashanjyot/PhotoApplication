@@ -7,7 +7,7 @@ import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.repository.PhotoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import network.generic.Status
+import com.rashan.photoapplication.network.generic.Status
 
 class OverviewViewModel @ViewModelInject constructor(
     private val photoRepository: PhotoRepository
