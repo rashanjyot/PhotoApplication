@@ -43,4 +43,8 @@ class PhotoRepository @Inject constructor(
         }
     }
 
+    suspend fun updatePhotoFavouriteStatus(photoId: String, isFavourite: Boolean) {
+        photoDao.updatePhotoFavouriteStatus(photoId, isFavourite)
+    }
+
 }

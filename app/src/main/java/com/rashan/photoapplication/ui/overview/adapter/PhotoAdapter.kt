@@ -9,6 +9,7 @@ import com.rashan.photoapplication.R
 import com.rashan.photoapplication.databinding.ItemPhotoOverviewBinding
 import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.ui.detail.activity.DetailActivity
+import com.rashan.photoapplication.ui.overview.activity.OverviewActivity
 
 class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
@@ -37,12 +38,12 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
             val photoDoubleTapDetector = GestureDetectorCompat(
                 photoImageview.context,
-                PhotoDoubleTapListener(photo)
+                PhotoDoubleTapListener(root, photo)
             )
 
-            photoImageview.setOnTouchListener{ view, motionEvent ->
+            photoImageview.setOnTouchListener { view, motionEvent ->
                 photoDoubleTapDetector.onTouchEvent(motionEvent)
-                false
+                true
             }
         }
     }
@@ -57,32 +58,34 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
         }
     }
 
-    fun onImageViewClick(view: View, photo: Photo) {
-        val context = view.context
-        if (context is Activity) {
-            DetailActivity.startActivity(context, photo)
-        }
-    }
-
     class PhotoViewHolder(val binding: ItemPhotoOverviewBinding) :
         RecyclerView.ViewHolder(binding.root)
 
     class PhotoDoubleTapListener constructor(
+        private val view: View,
         private val photo: Photo
     ) :
         GestureDetector.SimpleOnGestureListener() {
 
         override fun onDoubleTap(e: MotionEvent?): Boolean {
-//            val view = recyclerView.findChildViewUnder(e!!.x, e.y)
-////            val childIndex = recyclerView.indexOfChild(view)
-//            val childIndex = recyclerView.getChildLayoutPosition(view!!)
-//            val photo = (recyclerView.adapter as? PhotoAdapter)?.photoList!![childIndex]
-//            Toast.makeText(recyclerView.context, "${photo.author} $childIndex", Toast.LENGTH_SHORT).show()
-
-
-
+            (view.context as OverviewActivity).updatePhotoFavouriteStatus(
+                photo.id,
+                !photo.isFavourite
+            )
             return super.onDoubleTap(e)
         }
 
+        override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
+            openDetailActivityForPhoto(view, photo)
+            return super.onSingleTapConfirmed(e)
+        }
+    }
+
+}
+
+private fun openDetailActivityForPhoto(view: View, photo: Photo) {
+    val context = view.context
+    if (context is Activity) {
+        DetailActivity.startActivity(context, photo)
     }
 }

@@ -27,4 +27,8 @@ class OverviewActivity : AppCompatActivity() {
         }
     }
 
+    fun updatePhotoFavouriteStatus(photoId: String, isFavourite: Boolean) {
+        viewModel.updatePhotoFavouriteStatus(photoId, isFavourite)
+    }
+
 }

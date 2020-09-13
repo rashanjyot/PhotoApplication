@@ -14,4 +14,7 @@ interface PhotoDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertMultiple(photoList: List<Photo>)
+
+    @Query("Update photo SET isFavourite = :isFavourite WHERE id = :photoId")
+    suspend fun updatePhotoFavouriteStatus(photoId: String, isFavourite: Boolean)
 }

@@ -30,6 +30,7 @@ class OverviewViewModel @ViewModelInject constructor(
             }
         })
     }
+
     fun refreshPhotoList() = viewModelScope.launch(Dispatchers.IO) {
 
         isRetryAllowed.set(false)
@@ -45,4 +46,10 @@ class OverviewViewModel @ViewModelInject constructor(
         isLoading.set(false)
 
     }
+
+    fun updatePhotoFavouriteStatus(photoId: String, isFavourite: Boolean) =
+        viewModelScope.launch(Dispatchers.IO) {
+            photoRepository.updatePhotoFavouriteStatus(photoId, isFavourite)
+            refreshPhotoList()
+        }
 }
