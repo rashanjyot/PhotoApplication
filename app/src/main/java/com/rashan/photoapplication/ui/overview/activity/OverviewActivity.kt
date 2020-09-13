@@ -23,7 +23,7 @@ class OverviewActivity : AppCompatActivity() {
         binding.apply {
             lifecycleOwner = this@OverviewActivity
             adapter = PhotoAdapter()
-            vm = viewModel.apply { fetchPhotoList() }
+            vm = viewModel.apply { refreshPhotoList() }
         }
     }
 

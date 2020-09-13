@@ -1,6 +1,6 @@
 package com.rashan.photoapplication.repository
 
-import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.persistence.PhotoDao
 import com.rashan.photoapplication.network.PhotoClient
@@ -16,9 +16,9 @@ class PhotoRepository @Inject constructor(
     private val responseHandler: ResponseHandler
 ) {
 
-    var photoListLiveData: LiveData<List<Photo>> = photoDao.getAllAsLiveData()
+    var photoListLiveData: MutableLiveData<List<Photo>> = MutableLiveData(listOf())
 
-    suspend fun fetchPhotoList(onError: (String) -> Unit) {
+    suspend fun fetchPhotoList(onlyFavourites: Boolean, onError: (String) -> Unit) {
         val photoList: List<Photo>? = photoDao.getAll()
         if (photoList == null || photoList.isEmpty()) {
             val photoListResource = fetchRemotePhotoList()
@@ -26,6 +26,12 @@ class PhotoRepository @Inject constructor(
                 Status.SUCCESS -> photoDao.insertMultiple(photoListResource.data!!)
                 Status.ERROR -> onError(photoListResource.message!!)
             }
+        }
+
+        if (onlyFavourites) {
+            photoListLiveData.postValue(photoDao.getFavourites())
+        } else {
+            photoListLiveData.postValue(photoDao.getAll())
         }
     }
 

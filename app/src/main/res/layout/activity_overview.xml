@@ -20,13 +20,24 @@
         app:toast="@{vm.toastLiveData}"
         tools:context=".ui.overview.activity.OverviewActivity">
 
+        <com.google.android.material.switchmaterial.SwitchMaterial
+            android:id="@+id/favourite_switch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="@={vm.showOnlyFavourites}"
+            android:text="Show only favourites"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/photo_recycler_view"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/photo_recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             app:adapter="@{adapter}"
             app:adapter_photo_list="@{vm.photoListLiveData}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/favourite_switch" />
 
         <ProgressBar
             android:id="@+id/progress_circular"
@@ -44,7 +55,7 @@
             android:id="@+id/retry_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="@{()->vm.fetchPhotoList()}"
+            android:onClick="@{()->vm.refreshPhotoList()}"
             android:text="Retry"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
