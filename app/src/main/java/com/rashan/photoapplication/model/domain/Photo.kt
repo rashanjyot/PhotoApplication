@@ -3,20 +3,25 @@ package com.rashan.photoapplication.model.domain
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
+@Entity
 data class Photo(
-    val id: String,
-    val author: String,
-    val width: Int,
-    val height: Int,
-    val url: String,
-    val downloadUrl: String,
+    @PrimaryKey
+    var id: String,
+
+    var author: String,
+
+    var width: Int,
+
+    var height: Int,
+
+    var url: String,
+
+    @SerializedName("download_url")
+    var downloadUrl: String,
+
     var isFavourite: Boolean = false
 ) : Parcelable
-
-@Entity
-data class PhotoFavourite(
-    @PrimaryKey val id: String
-)

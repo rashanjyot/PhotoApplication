@@ -1,6 +1,6 @@
 package com.rashan.photoapplication.di
 
-import com.rashan.photoapplication.persistence.PhotoFavouriteDao
+import com.rashan.photoapplication.persistence.PhotoDao
 import com.rashan.photoapplication.repository.PhotoRepository
 import dagger.Module
 import dagger.Provides
@@ -18,10 +18,10 @@ object RepositoryModule {
     @ActivityRetainedScoped
     fun providePhotoRepository(
         photoClient: PhotoClient,
-        photoFavouriteDao: PhotoFavouriteDao,
+        photoDao: PhotoDao,
         responseHandler: ResponseHandler
     ): PhotoRepository {
-        return PhotoRepository(photoClient, photoFavouriteDao, responseHandler)
+        return PhotoRepository(photoClient, photoDao, responseHandler)
     }
 
 }

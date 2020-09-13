@@ -25,8 +25,10 @@ android {
         }
     }
 
-    dataBinding {
-        enabled = true
+    buildFeatures {
+        dataBinding {
+            enabled = true
+        }
     }
 
     compileOptions {
@@ -82,7 +84,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
-    implementation "androidx.room:room-ktx:2.2.5"
 
     def room_version = "2.2.5"
     implementation "androidx.room:room-runtime:$room_version"

@@ -1,19 +1,17 @@
 package com.rashan.photoapplication.persistence
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.rashan.photoapplication.model.domain.PhotoFavourite
+import com.rashan.photoapplication.model.domain.Photo
 
 @Dao
-interface PhotoFavouriteDao {
-    @Query("SELECT * FROM photofavourite")
-    fun getAll(): List<PhotoFavourite>
+interface PhotoDao {
+    @Query("SELECT * FROM photo")
+    fun getAllAsLiveData(): LiveData<List<Photo>>
 
-    @Query("SELECT * FROM photofavourite WHERE id = :id")
-    fun getById(id: String): List<PhotoFavourite>
+    @Query("SELECT * FROM photo")
+    fun getAll(): List<Photo>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insert(photoFavourite: PhotoFavourite)
-
-    @Delete
-    fun delete(photoFavourite: PhotoFavourite)
+    fun insertMultiple(photoList: List<Photo>)
 }

@@ -3,7 +3,7 @@ package com.rashan.photoapplication.di
 import android.app.Application
 import androidx.room.Room
 import com.rashan.photoapplication.persistence.AppDatabase
-import com.rashan.photoapplication.persistence.PhotoFavouriteDao
+import com.rashan.photoapplication.persistence.PhotoDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,14 +18,14 @@ object PersistenceModule {
     @Singleton
     fun provideAppDatabase(application: Application): AppDatabase {
         return Room
-            .databaseBuilder(application, AppDatabase::class.java, "photos.db")
+            .databaseBuilder(application, AppDatabase::class.java, "photo.db")
             .fallbackToDestructiveMigration()
             .build()
     }
 
     @Provides
     @Singleton
-    fun providePhotoFavouriteDao(appDatabase: AppDatabase): PhotoFavouriteDao {
-        return appDatabase.photoFavouriteDao()
+    fun providePhotoDao(appDatabase: AppDatabase): PhotoDao {
+        return appDatabase.photoDao()
     }
 }

@@ -1,9 +1,8 @@
 package com.rashan.photoapplication.ui.overview.adapter
 
 import android.app.Activity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.view.GestureDetectorCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rashan.photoapplication.R
@@ -30,8 +29,21 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
     override fun onBindViewHolder(holder: PhotoViewHolder, position: Int) {
         holder.binding.apply {
-            photo = photoList[position]
+
+            val photo = photoList[position]
+
+            this.photo = photo
             adapter = this@PhotoAdapter
+
+            val photoDoubleTapDetector = GestureDetectorCompat(
+                photoImageview.context,
+                PhotoDoubleTapListener(photo)
+            )
+
+            photoImageview.setOnTouchListener{ view, motionEvent ->
+                photoDoubleTapDetector.onTouchEvent(motionEvent)
+                false
+            }
         }
     }
 
@@ -54,4 +66,23 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
     class PhotoViewHolder(val binding: ItemPhotoOverviewBinding) :
         RecyclerView.ViewHolder(binding.root)
+
+    class PhotoDoubleTapListener constructor(
+        private val photo: Photo
+    ) :
+        GestureDetector.SimpleOnGestureListener() {
+
+        override fun onDoubleTap(e: MotionEvent?): Boolean {
+//            val view = recyclerView.findChildViewUnder(e!!.x, e.y)
+////            val childIndex = recyclerView.indexOfChild(view)
+//            val childIndex = recyclerView.getChildLayoutPosition(view!!)
+//            val photo = (recyclerView.adapter as? PhotoAdapter)?.photoList!![childIndex]
+//            Toast.makeText(recyclerView.context, "${photo.author} $childIndex", Toast.LENGTH_SHORT).show()
+
+
+
+            return super.onDoubleTap(e)
+        }
+
+    }
 }

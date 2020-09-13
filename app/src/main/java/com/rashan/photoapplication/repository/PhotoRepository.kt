@@ -1,25 +1,37 @@
 package com.rashan.photoapplication.repository
 
+import androidx.lifecycle.LiveData
 import com.rashan.photoapplication.model.domain.Photo
-import com.rashan.photoapplication.model.networkDto.mapToDomain
-import com.rashan.photoapplication.persistence.PhotoFavouriteDao
+import com.rashan.photoapplication.persistence.PhotoDao
 import com.rashan.photoapplication.network.PhotoClient
 import com.rashan.photoapplication.network.generic.Resource
 import com.rashan.photoapplication.network.generic.ResponseHandler
+import com.rashan.photoapplication.network.generic.Status
 import java.lang.Exception
 import javax.inject.Inject
 
 class PhotoRepository @Inject constructor(
     private val photoClient: PhotoClient,
-    private val photoFavouriteDao: PhotoFavouriteDao,
+    private val photoDao: PhotoDao,
     private val responseHandler: ResponseHandler
 ) {
-    suspend fun fetchPhotoList(): Resource<List<Photo>> {
+
+    var photoListLiveData: LiveData<List<Photo>> = photoDao.getAllAsLiveData()
+
+    suspend fun fetchPhotoList(onError: (String) -> Unit) {
+        val photoList: List<Photo>? = photoDao.getAll()
+        if (photoList == null || photoList.isEmpty()) {
+            val photoListResource = fetchRemotePhotoList()
+            when (photoListResource.status) {
+                Status.SUCCESS -> photoDao.insertMultiple(photoListResource.data!!)
+                Status.ERROR -> onError(photoListResource.message!!)
+            }
+        }
+    }
+
+    private suspend fun fetchRemotePhotoList(): Resource<List<Photo>> {
         return try {
-            responseHandler.handleSuccess(photoClient.fetchPhotoList().map {
-                val isFavourite = photoFavouriteDao.getById(it.id).isNotEmpty()
-                it.mapToDomain().apply { this.isFavourite = isFavourite }
-            })
+            responseHandler.handleSuccess(photoClient.fetchPhotoList())
         } catch (e: Exception) {
             responseHandler.handleException(e)
         }
