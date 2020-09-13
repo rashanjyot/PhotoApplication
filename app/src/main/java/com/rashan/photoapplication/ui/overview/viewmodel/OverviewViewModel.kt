@@ -35,7 +35,7 @@ class OverviewViewModel @ViewModelInject constructor(
         isRetryAllowed.set(false)
 
         isLoading.set(true)
-        photoRepository.fetchPhotoList(
+        photoRepository.updatePhotoList(
             showOnlyFavourites.get(),
             onError = {
                 isRetryAllowed.set(true)

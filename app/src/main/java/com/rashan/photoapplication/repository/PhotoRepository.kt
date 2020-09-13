@@ -18,7 +18,7 @@ class PhotoRepository @Inject constructor(
 
     var photoListLiveData: MutableLiveData<List<Photo>> = MutableLiveData(listOf())
 
-    suspend fun fetchPhotoList(onlyFavourites: Boolean, onError: (String) -> Unit) {
+    suspend fun updatePhotoList(onlyFavourites: Boolean, onError: (String) -> Unit) {
         val photoList: List<Photo>? = photoDao.getAll()
         if (photoList == null || photoList.isEmpty()) {
             val photoListResource = fetchRemotePhotoList()
