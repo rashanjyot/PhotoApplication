@@ -9,6 +9,7 @@ import dagger.hilt.android.components.ActivityRetainedComponent
 import dagger.hilt.android.scopes.ActivityRetainedScoped
 import com.rashan.photoapplication.network.PhotoClient
 import com.rashan.photoapplication.network.generic.ResponseHandler
+import com.rashan.photoapplication.repository.PhotoRepositoryImpl
 
 @Module
 @InstallIn(ActivityRetainedComponent::class)
@@ -21,7 +22,7 @@ object RepositoryModule {
         photoDao: PhotoDao,
         responseHandler: ResponseHandler
     ): PhotoRepository {
-        return PhotoRepository(photoClient, photoDao, responseHandler)
+        return PhotoRepositoryImpl(photoClient, photoDao, responseHandler)
     }
 
 }
