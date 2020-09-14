@@ -5,8 +5,8 @@ import androidx.activity.viewModels
 import com.rashan.photoapplication.R
 import com.rashan.photoapplication.base.BaseActivity
 import com.rashan.photoapplication.databinding.ActivityOverviewBinding
-import com.rashan.photoapplication.ui.overview.viewmodel.OverviewViewModel
 import com.rashan.photoapplication.ui.overview.adapter.PhotoAdapter
+import com.rashan.photoapplication.ui.overview.viewmodel.OverviewViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

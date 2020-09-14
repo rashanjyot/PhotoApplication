@@ -4,11 +4,7 @@ import androidx.databinding.Observable
 import androidx.databinding.Observable.OnPropertyChangedCallback
 import androidx.databinding.ObservableBoolean
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.MediatorLiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.repository.PhotoRepository
 import kotlinx.coroutines.Dispatchers

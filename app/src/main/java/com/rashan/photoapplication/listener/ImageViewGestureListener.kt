@@ -2,11 +2,8 @@ package com.rashan.photoapplication.listener
 
 import android.view.GestureDetector
 import android.view.MotionEvent
-import android.view.View
 import android.widget.ImageView
 import androidx.core.view.GestureDetectorCompat
-import com.rashan.photoapplication.base.BaseActivity
-import com.rashan.photoapplication.model.domain.Photo
 
 class ImageViewGestureListener constructor(
     private val onSingleTapConfirmed: (() -> Unit)? = null,

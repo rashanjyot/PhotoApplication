@@ -10,7 +10,6 @@ import com.rashan.photoapplication.base.BaseActivity
 import com.rashan.photoapplication.base.onPhotoDoubleTap
 import com.rashan.photoapplication.databinding.ActivityDetailBinding
 import com.rashan.photoapplication.listener.setupImageViewGestureDetector
-import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.ui.detail.viewmodel.DetailViewModel
 import com.rashan.photoapplication.utility.DownloadUtility
 import dagger.hilt.android.AndroidEntryPoint
