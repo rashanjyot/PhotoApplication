@@ -12,6 +12,9 @@ interface PhotoDao {
     @Query("SELECT * FROM photo")
     fun getAll(): List<Photo>
 
+    @Query("SELECT * FROM photo where id = :photoId")
+    suspend fun getPhotoById(photoId: String): Photo
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertMultiple(photoList: List<Photo>)
 

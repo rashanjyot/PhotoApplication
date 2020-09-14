@@ -1,6 +1,8 @@
 package com.rashan.photoapplication.repository
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.liveData
 import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.persistence.PhotoDao
 import com.rashan.photoapplication.network.PhotoClient
@@ -45,6 +47,10 @@ class PhotoRepository @Inject constructor(
 
     suspend fun updatePhotoFavouriteStatus(photoId: String, isFavourite: Boolean) {
         photoDao.updatePhotoFavouriteStatus(photoId, isFavourite)
+    }
+
+    fun getRoomLiveDataForPhotoId(photoId: String) = liveData<Photo> {
+        photoDao.getPhotoById(photoId)
     }
 
 }

@@ -2,14 +2,13 @@ package com.rashan.photoapplication.ui.overview.adapter
 
 import android.app.Activity
 import android.view.*
-import androidx.core.view.GestureDetectorCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rashan.photoapplication.R
 import com.rashan.photoapplication.databinding.ItemPhotoOverviewBinding
+import com.rashan.photoapplication.listener.setupImageViewGestureDetector
 import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.ui.detail.activity.DetailActivity
-import com.rashan.photoapplication.ui.overview.activity.OverviewActivity
 
 class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
@@ -36,15 +35,10 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
             this.photo = photo
             adapter = this@PhotoAdapter
 
-            val photoDoubleTapDetector = GestureDetectorCompat(
-                photoImageview.context,
-                PhotoDoubleTapListener(root, photo)
+            photoImageview.setupImageViewGestureDetector(
+                photo,
+                onSingleTapConfirmed = { openDetailActivityForPhoto(root, photo) }
             )
-
-            photoImageview.setOnTouchListener { view, motionEvent ->
-                photoDoubleTapDetector.onTouchEvent(motionEvent)
-                true
-            }
         }
     }
 
@@ -60,26 +54,6 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
     class PhotoViewHolder(val binding: ItemPhotoOverviewBinding) :
         RecyclerView.ViewHolder(binding.root)
-
-    class PhotoDoubleTapListener constructor(
-        private val view: View,
-        private val photo: Photo
-    ) :
-        GestureDetector.SimpleOnGestureListener() {
-
-        override fun onDoubleTap(e: MotionEvent?): Boolean {
-            (view.context as OverviewActivity).updatePhotoFavouriteStatus(
-                photo.id,
-                !photo.isFavourite
-            )
-            return super.onDoubleTap(e)
-        }
-
-        override fun onSingleTapConfirmed(e: MotionEvent?): Boolean {
-            openDetailActivityForPhoto(view, photo)
-            return super.onSingleTapConfirmed(e)
-        }
-    }
 
 }
 
