@@ -26,14 +26,13 @@ class DetailActivity : BaseActivity() {
 
         binding.apply {
             lifecycleOwner = this@DetailActivity
-            vm = viewModel.apply { photo = intent.extras!!.getParcelable<Photo>(EXTRA_PHOTO)!! }
-            photo = viewModel.photo
+            vm = viewModel
 
             openUnsplashUrlButton.setOnClickListener { openUnsplashUrlInBrowser() }
             downloadPhotoButton.setOnClickListener { downloadPhoto() }
 
             photoImageview.setupImageViewGestureDetector(
-                onDoubleTap = { (photoImageview.context as BaseActivity).onPhotoDoubleTap(viewModel.photo) }
+                onDoubleTap = { (photoImageview.context as BaseActivity).onPhotoDoubleTap(viewModel.photoLiveData.value!!) }
             )
         }
     }
@@ -44,21 +43,24 @@ class DetailActivity : BaseActivity() {
 
     private fun openUnsplashUrlInBrowser() {
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(viewModel.photo.url)
+        intent.data = Uri.parse(viewModel.photoLiveData.value!!.url)
         startActivity(intent)
     }
 
     private fun downloadPhoto() {
-        DownloadUtility.downloadImage(applicationContext, viewModel.photo.downloadUrl)
+        DownloadUtility.downloadImage(
+            applicationContext,
+            viewModel.photoLiveData.value!!.downloadUrl
+        )
     }
 
     companion object {
 
-        private const val EXTRA_PHOTO = "EXTRA_PHOTO"
+        const val EXTRA_PHOTO_ID = "EXTRA_PHOTO_ID"
 
-        fun startActivity(activity: Activity, photo: Photo) {
+        fun startActivity(activity: Activity, photoId: String) {
             val intent = Intent(activity, DetailActivity::class.java)
-            intent.putExtra(EXTRA_PHOTO, photo)
+            intent.putExtra(EXTRA_PHOTO_ID, photoId)
             activity.startActivity(intent)
         }
     }

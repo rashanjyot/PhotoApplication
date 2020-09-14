@@ -43,8 +43,8 @@ class PhotoRepository @Inject constructor(
         photoDao.updatePhotoFavouriteStatus(photoId, isFavourite)
     }
 
-    fun getRoomLiveDataForPhotoId(photoId: String) = liveData<Photo> {
-        photoDao.getPhotoById(photoId)
+    fun getRoomLiveDataForPhotoId(photoId: String): LiveData<Photo> {
+        return photoDao.getPhotoById(photoId)
     }
 
 }

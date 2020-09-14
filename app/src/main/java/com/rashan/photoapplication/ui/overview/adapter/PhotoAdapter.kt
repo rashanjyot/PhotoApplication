@@ -39,7 +39,7 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
             photoImageview.setupImageViewGestureDetector(
                 onDoubleTap = { (photoImageview.context as BaseActivity).onPhotoDoubleTap(photo) },
-                onSingleTapConfirmed = { openDetailActivityForPhoto(root, photo) }
+                onSingleTapConfirmed = { openDetailActivityForPhoto(root, photo.id) }
             )
         }
     }
@@ -59,9 +59,9 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
 
 }
 
-private fun openDetailActivityForPhoto(view: View, photo: Photo) {
+private fun openDetailActivityForPhoto(view: View, photoId: String) {
     val context = view.context
     if (context is Activity) {
-        DetailActivity.startActivity(context, photo)
+        DetailActivity.startActivity(context, photoId)
     }
 }
