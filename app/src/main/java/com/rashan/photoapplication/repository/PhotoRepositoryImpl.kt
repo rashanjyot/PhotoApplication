@@ -1,7 +1,6 @@
 package com.rashan.photoapplication.repository
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.persistence.PhotoDao
 import com.rashan.photoapplication.network.PhotoClient
@@ -20,7 +19,7 @@ class PhotoRepositoryImpl @Inject constructor(
     override var allPhotosLiveData: LiveData<List<Photo>> = photoDao.getAllAsLiveData()
     override var favouritePhotosLiveData: LiveData<List<Photo>> = photoDao.getFavouritesAsLiveData()
 
-    override suspend fun updatePhotoList(onError: (String) -> Unit) {
+    override suspend fun updatePhotoListIfRequired(onError: (String) -> Unit) {
         val photoList: List<Photo>? = photoDao.getAll()
         if (photoList == null || photoList.isEmpty()) {
             val photoListResource = fetchRemotePhotoList()
@@ -43,8 +42,8 @@ class PhotoRepositoryImpl @Inject constructor(
         photoDao.updatePhotoFavouriteStatus(photoId, isFavourite)
     }
 
-    override fun getRoomLiveDataForPhotoId(photoId: String): LiveData<Photo> {
-        return photoDao.getPhotoById(photoId)
+    override fun getPhotoAsLiveData(photoId: String): LiveData<Photo> {
+        return photoDao.getPhotoAsLiveData(photoId)
     }
 
 }

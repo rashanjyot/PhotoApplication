@@ -8,10 +8,10 @@ interface PhotoRepository {
     var allPhotosLiveData: LiveData<List<Photo>>
     var favouritePhotosLiveData: LiveData<List<Photo>>
 
-    suspend fun updatePhotoList(onError: (String) -> Unit)
+    suspend fun updatePhotoListIfRequired(onError: (String) -> Unit)
 
     suspend fun updatePhotoFavouriteStatus(photoId: String, isFavourite: Boolean)
 
-    fun getRoomLiveDataForPhotoId(photoId: String): LiveData<Photo>
+    fun getPhotoAsLiveData(photoId: String): LiveData<Photo>
 
 }

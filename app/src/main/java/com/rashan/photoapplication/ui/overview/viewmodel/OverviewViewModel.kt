@@ -60,7 +60,7 @@ class OverviewViewModel @ViewModelInject constructor(
         isRetryAllowed.set(false)
 
         isLoading.set(true)
-        photoRepository.updatePhotoList(
+        photoRepository.updatePhotoListIfRequired(
             onError = {
                 isRetryAllowed.set(true)
                 toastLiveData.postValue(it)

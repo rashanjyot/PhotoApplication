@@ -22,7 +22,7 @@ class DetailViewModel @ViewModelInject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            photoLiveData = photoRepository.getRoomLiveDataForPhotoId(photoId)
+            photoLiveData = photoRepository.getPhotoAsLiveData(photoId)
         }
     }
 

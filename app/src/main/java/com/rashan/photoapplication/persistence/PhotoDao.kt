@@ -17,7 +17,7 @@ interface PhotoDao {
     fun getAll(): List<Photo>
 
     @Query("SELECT * FROM photo where id = :photoId")
-    fun getPhotoById(photoId: String): LiveData<Photo>
+    fun getPhotoAsLiveData(photoId: String): LiveData<Photo>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertMultiple(photoList: List<Photo>)
