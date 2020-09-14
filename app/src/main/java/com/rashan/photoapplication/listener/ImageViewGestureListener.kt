@@ -9,17 +9,13 @@ import com.rashan.photoapplication.base.BaseActivity
 import com.rashan.photoapplication.model.domain.Photo
 
 class ImageViewGestureListener constructor(
-    private val view: View,
-    private val photo: Photo,
-    private val onSingleTapConfirmed: (() -> Unit)? = null
+    private val onSingleTapConfirmed: (() -> Unit)? = null,
+    private val onDoubleTap: () -> Unit
 ) :
     GestureDetector.SimpleOnGestureListener() {
 
     override fun onDoubleTap(e: MotionEvent?): Boolean {
-        (view.context as BaseActivity).updatePhotoFavouriteStatus(
-            photo.id,
-            !photo.isFavourite
-        )
+        onDoubleTap.invoke()
         return super.onDoubleTap(e)
     }
 
@@ -30,13 +26,14 @@ class ImageViewGestureListener constructor(
 }
 
 fun ImageView.setupImageViewGestureDetector(
-    photo: Photo,
-    onSingleTapConfirmed: (() -> Unit)? = null
+    onSingleTapConfirmed: (() -> Unit)? = null,
+    onDoubleTap: (() -> Unit)
 ) {
     val imageViewGestureDetector = GestureDetectorCompat(
         this.context,
         ImageViewGestureListener(
-            this, photo, onSingleTapConfirmed = onSingleTapConfirmed
+            onSingleTapConfirmed = onSingleTapConfirmed,
+            onDoubleTap = onDoubleTap
         )
     )
 

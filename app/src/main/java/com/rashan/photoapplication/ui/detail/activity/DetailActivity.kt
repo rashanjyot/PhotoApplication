@@ -7,6 +7,7 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import com.rashan.photoapplication.R
 import com.rashan.photoapplication.base.BaseActivity
+import com.rashan.photoapplication.base.onPhotoDoubleTap
 import com.rashan.photoapplication.databinding.ActivityDetailBinding
 import com.rashan.photoapplication.listener.setupImageViewGestureDetector
 import com.rashan.photoapplication.model.domain.Photo
@@ -31,7 +32,9 @@ class DetailActivity : BaseActivity() {
             openUnsplashUrlButton.setOnClickListener { openUnsplashUrlInBrowser() }
             downloadPhotoButton.setOnClickListener { downloadPhoto() }
 
-            photoImageview.setupImageViewGestureDetector(viewModel.photo)
+            photoImageview.setupImageViewGestureDetector(
+                onDoubleTap = { (photoImageview.context as BaseActivity).onPhotoDoubleTap(viewModel.photo) }
+            )
         }
     }
 

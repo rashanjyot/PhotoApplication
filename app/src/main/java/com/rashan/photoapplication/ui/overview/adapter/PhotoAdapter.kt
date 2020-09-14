@@ -5,6 +5,8 @@ import android.view.*
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.rashan.photoapplication.R
+import com.rashan.photoapplication.base.BaseActivity
+import com.rashan.photoapplication.base.onPhotoDoubleTap
 import com.rashan.photoapplication.databinding.ItemPhotoOverviewBinding
 import com.rashan.photoapplication.listener.setupImageViewGestureDetector
 import com.rashan.photoapplication.model.domain.Photo
@@ -36,7 +38,7 @@ class PhotoAdapter : RecyclerView.Adapter<PhotoAdapter.PhotoViewHolder>() {
             adapter = this@PhotoAdapter
 
             photoImageview.setupImageViewGestureDetector(
-                photo,
+                onDoubleTap = { (photoImageview.context as BaseActivity).onPhotoDoubleTap(photo) },
                 onSingleTapConfirmed = { openDetailActivityForPhoto(root, photo) }
             )
         }
