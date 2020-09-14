@@ -73,6 +73,5 @@ class OverviewViewModel @ViewModelInject constructor(
     fun updatePhotoFavouriteStatus(photoId: String, isFavourite: Boolean) =
         viewModelScope.launch(Dispatchers.IO) {
             photoRepository.updatePhotoFavouriteStatus(photoId, isFavourite)
-            refreshPhotoList()
         }
 }
