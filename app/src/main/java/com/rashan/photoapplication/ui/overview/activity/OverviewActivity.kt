@@ -25,7 +25,7 @@ class OverviewActivity : BaseActivity() {
         }
     }
 
-    fun updatePhotoFavouriteStatus(photoId: String, isFavourite: Boolean) {
+    override fun updatePhotoFavouriteStatus(photoId: String, isFavourite: Boolean) {
         viewModel.updatePhotoFavouriteStatus(photoId, isFavourite)
     }
 

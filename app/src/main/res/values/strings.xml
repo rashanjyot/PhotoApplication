@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">PhotoApplication</string>
+    <string name="photographer_name">Name: %s</string>
+    <string name="photo_width">Width: %s</string>
+    <string name="photo_height">Height: %s</string>
+    <string name="unsplash_url">Unsplash url: %s</string>
+    <string name="download_url">Download url: %s</string>
+
 </resources>

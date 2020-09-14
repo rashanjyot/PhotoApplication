@@ -1,10 +1,12 @@
-package com.rashan.photoapplication.ui.overview.binding
+package com.rashan.photoapplication.binding
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.ui.overview.adapter.PhotoAdapter
 
@@ -28,4 +30,11 @@ fun bindAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
 @BindingAdapter("adapter_photo_list")
 fun bindAdapterPhotoList(view: RecyclerView, photoList: List<Photo>?) {
     (view.adapter as? PhotoAdapter)?.replacePhotoList(photoList)
+}
+
+@BindingAdapter("set_image_url")
+fun ImageView.bindImageUrl(url: String?) {
+    Glide.with(this.context)
+        .load(url)
+        .into(this)
 }

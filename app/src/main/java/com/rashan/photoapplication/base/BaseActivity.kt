@@ -9,4 +9,6 @@ abstract class BaseActivity : AppCompatActivity() {
     protected inline fun <reified T : ViewDataBinding> binding(
         @LayoutRes resId: Int
     ): Lazy<T> = lazy { DataBindingUtil.setContentView<T>(this, resId) }
+
+    abstract fun updatePhotoFavouriteStatus(photoId: String, isFavourite: Boolean)
 }

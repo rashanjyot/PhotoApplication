@@ -2,6 +2,7 @@ package com.rashan.photoapplication.ui.detail.activity
 
 import android.app.Activity
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import com.rashan.photoapplication.R
@@ -9,6 +10,7 @@ import com.rashan.photoapplication.base.BaseActivity
 import com.rashan.photoapplication.databinding.ActivityDetailBinding
 import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.ui.detail.viewmodel.DetailViewModel
+import com.rashan.photoapplication.utility.DownloadUtility
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,7 +24,26 @@ class DetailActivity : BaseActivity() {
 
         binding.apply {
             lifecycleOwner = this@DetailActivity
+            vm = viewModel.apply { photo = intent.extras!!.getParcelable<Photo>(EXTRA_PHOTO)!! }
+            photo = viewModel.photo
+
+            openUnsplashUrlButton.setOnClickListener { openUnsplashUrlInBrowser() }
+            downloadPhotoButton.setOnClickListener { downloadPhoto() }
         }
+    }
+
+    override fun updatePhotoFavouriteStatus(photoId: String, isFavourite: Boolean) {
+        viewModel.updatePhotoFavouriteStatus(photoId, isFavourite)
+    }
+
+    private fun openUnsplashUrlInBrowser() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(viewModel.photo.url)
+        startActivity(intent)
+    }
+
+    private fun downloadPhoto() {
+        DownloadUtility.downloadImage(applicationContext, viewModel.photo.downloadUrl)
     }
 
     companion object {
