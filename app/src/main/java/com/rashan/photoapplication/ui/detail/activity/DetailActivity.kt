@@ -83,7 +83,7 @@ class DetailActivity : BaseActivity() {
             }
 
             else -> {
-                requestPermissions(arrayOf(EXTERNAL_STORAGE_PERMISSION), 100)
+                requestPermissions(arrayOf(EXTERNAL_STORAGE_PERMISSION), EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE)
             }
         }
     }
