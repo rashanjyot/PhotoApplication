@@ -18,21 +18,23 @@ class OverviewViewModel @ViewModelInject constructor(
     private val allPhotosLiveData = photoRepository.allPhotosLiveData
     private val favouritePhotosLiveData = photoRepository.favouritePhotosLiveData
 
-    val isLoading: ObservableBoolean = ObservableBoolean(false)
-    val isRetryAllowed: ObservableBoolean = ObservableBoolean(false)
-    val showOnlyFavourites: ObservableBoolean = ObservableBoolean(false)
-    val toastLiveData: MutableLiveData<String> = MutableLiveData()
+    val isLoading: ObservableBoolean = ObservableBoolean(false) // determines progressBar's visibility
+    val isRetryAllowed: ObservableBoolean = ObservableBoolean(false) // determines retryButton's visibility
+    val showOnlyFavourites: ObservableBoolean = ObservableBoolean(false) // determines favourite filter's state
+    val toastLiveData: MutableLiveData<String> = MutableLiveData() // displaying toast messages
 
     val photoListLiveData: MediatorLiveData<List<Photo>> = MediatorLiveData()
 
     init {
         photoListLiveData.addSource(photoRepository.allPhotosLiveData, Observer {
+            // update photoListLiveData only if all photos are to be shown
             if (!showOnlyFavourites.get()) {
                 photoListLiveData.postValue(it)
             }
         })
 
         photoListLiveData.addSource(photoRepository.favouritePhotosLiveData, Observer {
+            // update photoListLiveData only if favourite photos are to be shown
             if (showOnlyFavourites.get()) {
                 photoListLiveData.postValue(it)
             }
@@ -40,6 +42,7 @@ class OverviewViewModel @ViewModelInject constructor(
     }
 
     init {
+        // Observe showOnlyFavourites to filter for favourite photos
         showOnlyFavourites.addOnPropertyChangedCallback(object : OnPropertyChangedCallback() {
             override fun onPropertyChanged(sender: Observable?, propertyId: Int) {
                 if (showOnlyFavourites.get()) {
@@ -51,6 +54,10 @@ class OverviewViewModel @ViewModelInject constructor(
         })
     }
 
+    /**
+     * Responsible for refreshing LiveData objects ([allPhotosLiveData] & [favouritePhotosLiveData])
+     * if needed based on responses from repository's data sources
+     */
     fun refreshPhotoList() = viewModelScope.launch(Dispatchers.IO) {
 
         isRetryAllowed.set(false)

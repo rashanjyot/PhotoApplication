@@ -19,6 +19,11 @@ class PhotoRepositoryImpl @Inject constructor(
     override val allPhotosLiveData: LiveData<List<Photo>> = photoDao.getAllAsLiveData()
     override val favouritePhotosLiveData: LiveData<List<Photo>> = photoDao.getFavouritesAsLiveData()
 
+    /**
+     * Checks if photos are present in the local DB storage, else fetches them from
+     * remote data source and stores in local DB, which acts like the single source of truth.
+     * In case, the request to remote data source fails, invokes [onError] param.
+     */
     override suspend fun updatePhotoListIfRequired(onError: (String) -> Unit) {
         val photoList: List<Photo>? = photoDao.getAll()
         if (photoList == null || photoList.isEmpty()) {
