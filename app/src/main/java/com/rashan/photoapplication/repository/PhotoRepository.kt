@@ -5,8 +5,8 @@ import com.rashan.photoapplication.model.domain.Photo
 
 interface PhotoRepository {
 
-    var allPhotosLiveData: LiveData<List<Photo>>
-    var favouritePhotosLiveData: LiveData<List<Photo>>
+    val allPhotosLiveData: LiveData<List<Photo>>
+    val favouritePhotosLiveData: LiveData<List<Photo>>
 
     suspend fun updatePhotoListIfRequired(onError: (String) -> Unit)
 

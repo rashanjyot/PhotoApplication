@@ -16,8 +16,8 @@ class PhotoRepositoryImpl @Inject constructor(
     private val responseHandler: ResponseHandler
 ) : PhotoRepository {
 
-    override var allPhotosLiveData: LiveData<List<Photo>> = photoDao.getAllAsLiveData()
-    override var favouritePhotosLiveData: LiveData<List<Photo>> = photoDao.getFavouritesAsLiveData()
+    override val allPhotosLiveData: LiveData<List<Photo>> = photoDao.getAllAsLiveData()
+    override val favouritePhotosLiveData: LiveData<List<Photo>> = photoDao.getFavouritesAsLiveData()
 
     override suspend fun updatePhotoListIfRequired(onError: (String) -> Unit) {
         val photoList: List<Photo>? = photoDao.getAll()
