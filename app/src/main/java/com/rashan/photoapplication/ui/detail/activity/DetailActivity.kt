@@ -11,9 +11,9 @@ import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.rashan.photoapplication.R
 import com.rashan.photoapplication.base.BaseActivity
-import com.rashan.photoapplication.base.onPhotoDoubleTap
 import com.rashan.photoapplication.databinding.ActivityDetailBinding
 import com.rashan.photoapplication.listener.setupImageViewGestureDetector
+import com.rashan.photoapplication.model.domain.Photo
 import com.rashan.photoapplication.ui.detail.viewmodel.DetailViewModel
 import com.rashan.photoapplication.utility.DownloadUtility
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,18 +35,19 @@ class DetailActivity : BaseActivity() {
             downloadPhotoButton.setOnClickListener { downloadPhoto() }
 
             photoImageview.setupImageViewGestureDetector(
-                onDoubleTap = { (photoImageview.context as BaseActivity).onPhotoDoubleTap(viewModel.photoLiveData.value!!) }
+                onDoubleTap = {
+                    val photo = viewModel.getPhoto()
+                    viewModel.updatePhotoFavouriteStatus(
+                        photo.id, !photo.isFavourite
+                    )
+                }
             )
         }
     }
 
-    override fun updatePhotoFavouriteStatus(photoId: String, isFavourite: Boolean) {
-        viewModel.updatePhotoFavouriteStatus(photoId, isFavourite)
-    }
-
     private fun openUnsplashUrlInBrowser() {
         val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse(viewModel.photoLiveData.value!!.url)
+        intent.data = Uri.parse(viewModel.getPhoto().url)
         startActivity(intent)
     }
 
@@ -58,7 +59,7 @@ class DetailActivity : BaseActivity() {
         ) {
             DownloadUtility.downloadImage(
                 applicationContext,
-                viewModel.photoLiveData.value!!.downloadUrl
+                viewModel.getPhoto().downloadUrl
             )
         } else {
             initiatePermissionRequest()

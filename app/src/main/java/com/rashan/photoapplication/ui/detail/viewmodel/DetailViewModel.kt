@@ -17,7 +17,7 @@ class DetailViewModel @ViewModelInject constructor(
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val photoId = savedStateHandle.get<String>(EXTRA_PHOTO_ID)!!
+    private val photoId = requireNotNull(savedStateHandle.get<String>(EXTRA_PHOTO_ID))
     lateinit var photoLiveData: LiveData<Photo>
 
     init {
@@ -30,4 +30,7 @@ class DetailViewModel @ViewModelInject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             photoRepository.updatePhotoFavouriteStatus(photoId, isFavourite)
         }
+
+    fun getPhoto(): Photo = requireNotNull(photoLiveData.value)
+
 }

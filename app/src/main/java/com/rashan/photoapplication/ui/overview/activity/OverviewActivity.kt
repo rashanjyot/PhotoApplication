@@ -20,13 +20,8 @@ class OverviewActivity : BaseActivity() {
 
         binding.apply {
             lifecycleOwner = this@OverviewActivity
-            adapter = PhotoAdapter()
+            adapter = PhotoAdapter(viewModel)
             vm = viewModel.apply { refreshPhotoList() }
         }
     }
-
-    override fun updatePhotoFavouriteStatus(photoId: String, isFavourite: Boolean) {
-        viewModel.updatePhotoFavouriteStatus(photoId, isFavourite)
-    }
-
 }
