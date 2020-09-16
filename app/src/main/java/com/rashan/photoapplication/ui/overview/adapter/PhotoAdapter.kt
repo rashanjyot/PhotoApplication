@@ -46,7 +46,7 @@ class PhotoAdapter(private val viewModel: OverviewViewModel) : RecyclerView.Adap
     }
 
     fun replacePhotoList(photoList: List<Photo>?) {
-        if (photoList != null) {
+        photoList?.let {
             this.photoList.apply {
                 clear()
                 addAll(photoList)
